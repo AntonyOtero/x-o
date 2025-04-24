@@ -74,6 +74,7 @@ Give a ⭐️ if you like this project!
 ## Useful Resources
 - [Google Fonts](https://fonts.google.com/)
 - [Typescale](https://typescale.com/)
+- [Material Icons](https://pictogrammers.com/library/mdi/)
 
 ## 📝 License
 
