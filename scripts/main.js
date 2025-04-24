@@ -17,9 +17,11 @@ const gameLogic = (() => {
     let currentPlayer = playerOne;
     let winCondition = undefined;
     const startGame = () => {
+        currentPlayer = playerOne;
         displayController.displayBoard();
     };
     const restartGame = () => {
+        currentPlayer = playerOne;
         gameboard.restartMemory();
         displayController.updateBoard();
         displayController.removeNotification();
