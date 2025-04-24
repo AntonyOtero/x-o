@@ -19,6 +19,11 @@ const gameLogic = (() => {
     const startGame = () => {
         displayController.displayBoard();
     };
+    const restartGame = () => {
+        gameboard.restartMemory();
+        displayController.updateBoard();
+        displayController.removeNotification();
+    }
     const endGame = (type) => {
         if (type) {
             displayController.displayNotification(`${currentPlayer.name} wins!`);
@@ -78,6 +83,7 @@ const gameLogic = (() => {
     return {
         startGame,
         endGame,
+        restartGame,
         getCurrentPlayer,
         updateCurrentPlayer,
         placeTokenAt,
@@ -88,15 +94,17 @@ const gameLogic = (() => {
 })();
 
 const gameboard = (() => {
-    const memory = new Array(9).fill("");
+    let memory = new Array(9).fill("");
     const getMemory = () => memory;
     const updateMemory = (unit, token) => {
         memory[unit] = token;
         displayController.updateBoard();
     };
+    const restartMemory = () => memory = new Array(9).fill("");
     return {
         getMemory,
         updateMemory,
+        restartMemory,
     }
 })();
 
@@ -131,9 +139,17 @@ const displayController = (() => {
         document.body.appendChild(Notification);
         Notification.textContent = message;
         Container.classList.toggle("disable");
+        const ReplayButton = document.createElement("button");
+        ReplayButton.classList.add("btn");
+        ReplayButton.textContent = "Rematch";
+        Notification.appendChild(ReplayButton);
+        ReplayButton.addEventListener("click", e => {
+            gameLogic.restartGame();
+        });
     }
     const removeNotification = () => {
         document.querySelector(".notification").remove();
+        Container.classList.toggle("disable");
     }
     const displayWinCondition = (winCondition) => {
         const Units = document.querySelectorAll(".unit");
