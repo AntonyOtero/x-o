@@ -44,3 +44,7 @@ h1 {
     font-size: 7.993rem;
     background-color: #ffffff;
 }
+
+.highlight {
+    color: red;
+}

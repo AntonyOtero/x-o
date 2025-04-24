@@ -1,10 +1,11 @@
-const createPlayer = (name, token) => {
+const createPlayer = (name, token, piece) => {
     let score = 0;
     const getScore = () => score;
     const addScore = () => ++score;
     return {
         name,
         token,
+        piece,
         getScore,
         addScore,
     };
@@ -17,12 +18,11 @@ const gameLogic = (() => {
     let winCondition = undefined;
     const startGame = () => {
         displayController.displayBoard();
-        // displayController.removeNotification();
     };
     const endGame = (type) => {
         if (type) {
             displayController.displayNotification(`${currentPlayer.name} wins!`);
-            console.log(getWinCondition());
+            displayController.displayWinCondition(getWinCondition());
         } else {
             displayController.displayNotification("It's a Tie! No moves remaining.");
         }
@@ -109,7 +109,7 @@ const displayController = (() => {
         gameboard.getMemory().forEach((unit) => {
             const GameboardUnit = document.createElement("div");
             GameboardUnit.classList.add("unit");
-            GameboardUnit.textContent = unit;
+            GameboardUnit.innerHTML = unit;
             Gameboard.appendChild(GameboardUnit);
         });
     }
@@ -120,21 +120,29 @@ const displayController = (() => {
         removeBoard();
         displayBoard();
     }
-    const displayNotification = (info) => {
+    const displayNotification = (message) => {
         const Notification = document.createElement("div");
         Notification.classList.add("notification");
         document.body.appendChild(Notification);
-        Notification.textContent = info;
+        Notification.textContent = message;
     }
     const removeNotification = () => {
         document.querySelector(".notification").remove();
     }
+    const displayWinCondition = (winCondition) => {
+        const Units = document.querySelectorAll(".unit");
+        winCondition.forEach(winUnitIndex => {
+            Units[winUnitIndex].classList.toggle("highlight");
+        });
+    }
+
     return {
         displayBoard,
         removeBoard,
         updateBoard,
         displayNotification,
         removeNotification,
+        displayWinCondition,
     };
 })();
 
@@ -142,11 +150,11 @@ const displayController = (() => {
 gameLogic.startGame();
 // displayController.displayNotification();
 // TIE GAME
-// gameLogic.placeTokenAt(0);
-// gameLogic.placeTokenAt(3);
-// gameLogic.placeTokenAt(1);
-// gameLogic.placeTokenAt(4);
-// gameLogic.placeTokenAt(5);
+gameLogic.placeTokenAt(0);
+gameLogic.placeTokenAt(3);
+gameLogic.placeTokenAt(1);
+gameLogic.placeTokenAt(4);
+gameLogic.placeTokenAt(5);
 // gameLogic.placeTokenAt(2);
 // gameLogic.placeTokenAt(6);
 // gameLogic.placeTokenAt(7);
