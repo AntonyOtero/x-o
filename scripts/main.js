@@ -112,6 +112,11 @@ const displayController = (() => {
             GameboardUnit.innerHTML = unit;
             Gameboard.appendChild(GameboardUnit);
         });
+        document.querySelectorAll(".unit").forEach((unit, i) => {
+            unit.addEventListener("click", e => {
+                gameLogic.placeTokenAt(i);
+            });
+        });
     }
     const removeBoard = () => {
         document.querySelector(".gameboard").remove();
@@ -150,11 +155,11 @@ const displayController = (() => {
 gameLogic.startGame();
 // displayController.displayNotification();
 // TIE GAME
-gameLogic.placeTokenAt(0);
-gameLogic.placeTokenAt(3);
-gameLogic.placeTokenAt(1);
-gameLogic.placeTokenAt(4);
-gameLogic.placeTokenAt(5);
+// gameLogic.placeTokenAt(0);
+// gameLogic.placeTokenAt(3);
+// gameLogic.placeTokenAt(1);
+// gameLogic.placeTokenAt(4);
+// gameLogic.placeTokenAt(5);
 // gameLogic.placeTokenAt(2);
 // gameLogic.placeTokenAt(6);
 // gameLogic.placeTokenAt(7);
