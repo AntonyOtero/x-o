@@ -17,13 +17,14 @@ const gameLogic = (() => {
     let winCondition = undefined;
     const startGame = () => {
         displayController.displayBoard();
+        // displayController.removeNotification();
     };
     const endGame = (type) => {
         if (type) {
-            console.log(`${currentPlayer.name} wins!`);
+            displayController.displayNotification(`${currentPlayer.name} wins!`);
             console.log(getWinCondition());
         } else {
-            console.log(`It's a Tie! No moves remaining.`);
+            displayController.displayNotification("It's a Tie! No moves remaining.");
         }
     };
     const getCurrentPlayer = () => currentPlayer;
@@ -112,28 +113,44 @@ const displayController = (() => {
             Gameboard.appendChild(GameboardUnit);
         });
     }
-    const updateBoard = () => {
+    const removeBoard = () => {
         document.querySelector(".gameboard").remove();
+    }
+    const updateBoard = () => {
+        removeBoard();
         displayBoard();
+    }
+    const displayNotification = (info) => {
+        const Notification = document.createElement("div");
+        Notification.classList.add("notification");
+        document.body.appendChild(Notification);
+        Notification.textContent = info;
+    }
+    const removeNotification = () => {
+        document.querySelector(".notification").remove();
     }
     return {
         displayBoard,
+        removeBoard,
         updateBoard,
+        displayNotification,
+        removeNotification,
     };
 })();
 
 
 gameLogic.startGame();
+// displayController.displayNotification();
 // TIE GAME
-gameLogic.placeTokenAt(0);
-gameLogic.placeTokenAt(3);
-gameLogic.placeTokenAt(1);
-gameLogic.placeTokenAt(4);
-gameLogic.placeTokenAt(5);
-gameLogic.placeTokenAt(2);
-gameLogic.placeTokenAt(6);
-gameLogic.placeTokenAt(7);
-gameLogic.placeTokenAt(8);
+// gameLogic.placeTokenAt(0);
+// gameLogic.placeTokenAt(3);
+// gameLogic.placeTokenAt(1);
+// gameLogic.placeTokenAt(4);
+// gameLogic.placeTokenAt(5);
+// gameLogic.placeTokenAt(2);
+// gameLogic.placeTokenAt(6);
+// gameLogic.placeTokenAt(7);
+// gameLogic.placeTokenAt(8);
 // Player One Wins
 // gameLogic.placeTokenAt(0);
 // gameLogic.placeTokenAt(1);
