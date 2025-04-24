@@ -32,14 +32,12 @@ const gameLogic = (() => {
     };
 
     const placeTokenAt = (unit) => {
-        gameboard.setBoard(unit, currentPlayer.token);
+        gameboard.updateMemory(unit, currentPlayer.token);
 
         if (checkWin()) {
             endGame(1);
-            // console.log("Player won!");
         } else if (checkTie()) {
             endGame(0)
-            // console.log("It's a tie");
         } else {
             updateCurrentPlayer();
         }
@@ -59,7 +57,7 @@ const gameLogic = (() => {
 
         const checkedConditions = winningConditions.map((condition) => {
             return condition.map((position) => {
-                return gameboard.getBoard()[position] === gameLogic.getCurrentPlayer().token;
+                return gameboard.getMemory()[position] === gameLogic.getCurrentPlayer().token;
             }).reduce((prevBool, currBool) => prevBool && currBool);
         });
 
@@ -73,7 +71,7 @@ const gameLogic = (() => {
     const getWinCondition = () => winCondition;
 
     const checkTie = () => {
-        return !gameboard.getBoard().includes("_") && !checkWin();
+        return !gameboard.getMemory().includes("") && !checkWin();
     };
 
     return {
@@ -89,48 +87,53 @@ const gameLogic = (() => {
 })();
 
 const gameboard = (() => {
-    const board = new Array(9).fill('_');
-    // const board = [
-    //     `x`,`x`,`o`,
-    //     `o`,`o`,`x`,
-    //     `x`,`x`,`o`
-    // ]
-    const getBoard = () => board;
-    const setBoard = (unit, token) => {
-        board[unit] = token;
-        displayController.displayBoard();
+    const memory = new Array(9).fill("");
+    const getMemory = () => memory;
+    const updateMemory = (unit, token) => {
+        memory[unit] = token;
+        displayController.updateBoard();
     };
     return {
-        getBoard,
-        setBoard,
+        getMemory,
+        updateMemory,
     }
 })();
 
 const displayController = (() => {
+    const Container = document.querySelector(".container");
     const displayBoard = () => {
-        let board = '';
-        gameboard.getBoard().forEach((unit, i) => {
-            board += ((i + 1) % 3 === 0) ? `|${unit}|\n` : `|${unit}`;
+        const Gameboard = document.createElement("div")
+        Gameboard.classList.add("gameboard");
+        Container.appendChild(Gameboard);
+        gameboard.getMemory().forEach((unit) => {
+            const GameboardUnit = document.createElement("div");
+            GameboardUnit.classList.add("unit");
+            GameboardUnit.textContent = unit;
+            Gameboard.appendChild(GameboardUnit);
         });
-        console.log(board);
+    }
+    const updateBoard = () => {
+        document.querySelector(".gameboard").remove();
+        displayBoard();
     }
     return {
         displayBoard,
+        updateBoard,
     };
 })();
 
 
 gameLogic.startGame();
 // TIE GAME
-// gameLogic.placeTokenAt(0);
-// gameLogic.placeTokenAt(3);
-// gameLogic.placeTokenAt(1);
-// gameLogic.placeTokenAt(4);
-// gameLogic.placeTokenAt(5);
-// gameLogic.placeTokenAt(2);
-// gameLogic.placeTokenAt(6);
-// gameLogic.placeTokenAt(7);
-// gameLogic.placeTokenAt(8);
+gameLogic.placeTokenAt(0);
+gameLogic.placeTokenAt(3);
+gameLogic.placeTokenAt(1);
+gameLogic.placeTokenAt(4);
+gameLogic.placeTokenAt(5);
+gameLogic.placeTokenAt(2);
+gameLogic.placeTokenAt(6);
+gameLogic.placeTokenAt(7);
+gameLogic.placeTokenAt(8);
 // Player One Wins
 // gameLogic.placeTokenAt(0);
 // gameLogic.placeTokenAt(1);
