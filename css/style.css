@@ -43,6 +43,7 @@ h1 {
     width: 25vh;
     font-size: 7.993rem;
     background-color: #ffffff;
+    cursor: pointer;
 }
 
 .highlight {
