@@ -49,3 +49,7 @@ h1 {
 .highlight {
     color: red;
 }
+
+.disable {
+    pointer-events: none;
+}

@@ -130,6 +130,7 @@ const displayController = (() => {
         Notification.classList.add("notification");
         document.body.appendChild(Notification);
         Notification.textContent = message;
+        Container.classList.toggle("disable");
     }
     const removeNotification = () => {
         document.querySelector(".notification").remove();
