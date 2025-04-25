@@ -135,6 +135,20 @@ const displayController = (() => {
         removeBoard();
         displayBoard();
     }
+    const displayPlayerInfo = () => {
+        const PlayerInfo = document.createElement("div");
+        PlayerInfo.classList = "player-info notification";
+        Container.appendChild(PlayerInfo);
+        PlayerInfo.innerHTML = `
+            <p class="player">
+                Player One is <input id="player-one" type="text" placeholder="P1 Name Here"> as X
+            </p>
+            <p class="player player-two">
+                Player Two is <input id="player-two" type="text" placeholder="P2 Name Here"> as O
+            </p>
+            <button class="btn start-btn">Start</button>
+        `
+    }
     const displayNotification = (message) => {
         const Notification = document.createElement("div");
         Notification.classList.add("notification");
@@ -164,14 +178,15 @@ const displayController = (() => {
         displayBoard,
         removeBoard,
         updateBoard,
+        displayPlayerInfo,
         displayNotification,
         removeNotification,
         displayWinCondition,
     };
 })();
 
-
-gameLogic.startGame();
+displayController.displayPlayerInfo();
+// gameLogic.startGame();
 // displayController.displayNotification();
 // TIE GAME
 // gameLogic.placeTokenAt(0);

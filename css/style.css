@@ -14,6 +14,18 @@ h1 {
     font-size: 2.986rem;
 }
 
+.player-info {
+    font-size: 1.44rem;
+}
+
+.player-info input {
+    text-align: center;
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    border-bottom:2px solid #f1f1f1;
+}
+
 .notification {
     display: flex;
     flex-direction: column;
