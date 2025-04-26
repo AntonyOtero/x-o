@@ -16,6 +16,7 @@ h1 {
 
 .card {
     padding: 20px 40px;
+    font-size: 1.44rem;
     color: #ffffff;
     background-color: #222222;
     border-radius: 15px;
@@ -31,14 +32,16 @@ h1 {
     padding: 20px 40px;
 }
 
-.player-info {
+#player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
     position: relative;
     top: 0;
     right: 0;
-    font-size: 1.44rem;
 }
 
-.player-info input {
+#player-info input {
     text-align: center;
     color: #ffffff;
     background-color: transparent;

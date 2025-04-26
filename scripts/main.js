@@ -41,15 +41,17 @@ const gameLogic = (() => {
         gameUI.restartBoardUI();
     }
     const placeTokenAtIndex = (i) => {
-        gameMemory.updateMemory(i);
-        gameUI.updateBoardUI();
-        if (gameMemory.isWin()) {
-            gameUI.highlightWin(gameMemory.getWinningCondition());
-            gameUI.displayNotification(1);
-        } else if (gameMemory.isTie()) {
-            gameUI.displayNotification(0);
-        } else {
-            gameMemory.updateCurrentPlayer();
+        if (!gameMemory.getMemory()[i]) {
+            gameMemory.updateMemory(i);
+            gameUI.updateBoardUI();
+            if (gameMemory.isWin()) {
+                gameUI.highlightWin(gameMemory.getWinningCondition());
+                gameUI.displayNotification(1);
+            } else if (gameMemory.isTie()) {
+                gameUI.displayNotification(0);
+            } else {
+                gameMemory.updateCurrentPlayer();
+            }
         }
     }
 
